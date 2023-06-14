@@ -1,26 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMachineryDto } from './dto/create-machinery.dto';
 import { UpdateMachineryDto } from './dto/update-machinery.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Machinery } from './entities/machinery.entity';
 
 @Injectable()
 export class MachineryService {
-  create(createMachineryDto: CreateMachineryDto) {
-    return 'This action adds a new machinery';
+  constructor(@InjectModel('Machinery') private readonly MachineryModel: Model<Machinery>) {}
+
+  async create(createMachineryDto: CreateMachineryDto) : Promise<Machinery> {
+    const newMachinery = new this.MachineryModel(createMachineryDto);
+    return await newMachinery.save();
   }
 
-  findAll() {
-    return `This action returns all machinery`;
+  async findAll() : Promise<Machinery[]> {
+    const findAllMachineries = await this.MachineryModel.find().exec();
+    if(!findAllMachineries || findAllMachineries.length === 0){
+      throw new NotFoundException('No machineries found')
+    } 
+    return findAllMachineries;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} machinery`;
+  async findOne(MachineryId: string) : Promise<Machinery> {
+    const existingMachinery = await this.MachineryModel.findById(MachineryId).exec();
+   if (!existingMachinery) {
+    throw new NotFoundException(`Machinery #${MachineryId} not found`);
+   }
+   return existingMachinery;
   }
 
-  update(id: number, updateMachineryDto: UpdateMachineryDto) {
-    return `This action updates a #${id} machinery`;
+  async update(MachineryId: string, updateMachineryDto: UpdateMachineryDto) : Promise<Machinery> {
+    const existingMachinery = await this.MachineryModel.findByIdAndUpdate(
+      MachineryId, updateMachineryDto, { new: true }
+    );
+   if (!existingMachinery) {
+     throw new NotFoundException(`Machinery #${MachineryId} not found`);
+   }
+   return existingMachinery;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} machinery`;
+  async remove(MachineryId: string) : Promise<Machinery> {
+    const deletedMachinery = await this.MachineryModel.findByIdAndDelete(MachineryId);
+    if (!deletedMachinery) {
+      throw new NotFoundException(`Machinery #${MachineryId} not found`);
+    }
+    return deletedMachinery;
   }
 }

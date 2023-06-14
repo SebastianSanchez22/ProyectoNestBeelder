@@ -1,26 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Client } from './entities/client.entity';
 
 @Injectable()
 export class ClientsService {
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client';
+
+  constructor(@InjectModel('Client') private readonly clientModel: Model<Client>) {}
+
+  async create(createClientDto: CreateClientDto) : Promise<Client> {
+    const newClient = new this.clientModel(createClientDto);
+    return await newClient.save();
   }
 
-  findAll() {
-    return `This action returns all clients`;
+  async findAll() : Promise<Client[]> {
+    const findAllClients = await this.clientModel.find().exec();
+    if(!findAllClients || findAllClients.length === 0){
+      throw new NotFoundException('No clients found')
+    } 
+    return findAllClients;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  async findOne(clientId: string) : Promise<Client> {
+    const existingClient = await this.clientModel.findById(clientId).exec();
+   if (!existingClient) {
+    throw new NotFoundException(`Client #${clientId} not found`);
+   }
+   return existingClient;
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(clientId: string, updateClientDto: UpdateClientDto) : Promise<Client> {
+    const existingClient = await this.clientModel.findByIdAndUpdate(
+      clientId, updateClientDto, { new: true }
+    );
+   if (!existingClient) {
+     throw new NotFoundException(`Client #${clientId} not found`);
+   }
+   return existingClient;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(clientId: string) : Promise<Client> {
+    const deletedClient = await this.clientModel.findByIdAndDelete(clientId);
+    if (!deletedClient) {
+      throw new NotFoundException(`Client #${clientId} not found`);
+    }
+    return deletedClient;
   }
 }

@@ -3,16 +3,14 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 export class Client {
 
     public static schema_name: string = 'Client';
-
     /*
     @Prop({
-        type: Number,
+        type: String,
         required: true,
         unique: true,
-        index: true
     })
-    clientId: number;*/
-
+    clientId: string;
+*/
     @Prop({
         type: String,
         required: true,

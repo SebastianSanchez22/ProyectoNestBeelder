@@ -8,27 +8,27 @@ export class MachineryController {
   constructor(private readonly machineryService: MachineryService) {}
 
   @Post()
-  create(@Body() createMachineryDto: CreateMachineryDto) {
+  async create(@Body() createMachineryDto: CreateMachineryDto) {
     return this.machineryService.create(createMachineryDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.machineryService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.machineryService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.machineryService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMachineryDto: UpdateMachineryDto) {
-    return this.machineryService.update(+id, updateMachineryDto);
+  async update(@Param('id') id: string, @Body() updateMachineryDto: UpdateMachineryDto) {
+    return this.machineryService.update(id, updateMachineryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.machineryService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.machineryService.remove(id);
   }
 }
