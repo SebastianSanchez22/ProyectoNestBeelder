@@ -1,15 +1,31 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Machinery } from "src/machinery/entities/machinery.entity";
+import { Types } from 'mongoose';
 
 export class Order {
 
     public static schema_name: string = 'Order';
+    /*
+    @Prop({
+        type: Number,
+        required: true,
+        unique: true
+    })
+    OrderId: number;
+    */
+    @Prop({
+        type: [{ type: Types.ObjectId, ref: 'Provider' }] 
+    })
+    provider: Types.ObjectId;
 
     @Prop({
-        type: Array<Machinery>,
-        required: true 
+        type: [{ type: Types.ObjectId, ref: 'Machinery' }] 
     })
-    orderItems: Array<Machinery>;
+    machineryList: Types.ObjectId[];
+
+    @Prop({
+        type: [{ type: Types.ObjectId, ref: 'Client' }]
+    })
+    client: Types.ObjectId;
   
     @Prop({
         type: Date,
