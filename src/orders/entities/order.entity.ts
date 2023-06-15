@@ -1,14 +1,13 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { CreateClientDto } from "src/clients/dto/create-client.dto";
-import { CreateMachineryDto } from "src/machinery/dto/create-machinery.dto";
 
 @Schema()
 export class OrderItem {
     @Prop({ 
-        type: CreateMachineryDto,
+        type: String,
         required: true
     })
-    machinery: CreateMachineryDto;
+    machineryId: String;
 
     @Prop({
         type: Number,

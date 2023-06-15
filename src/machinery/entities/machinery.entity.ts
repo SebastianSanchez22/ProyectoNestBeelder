@@ -36,19 +36,7 @@ export class Machinery extends Document {
         type: Number,
         required: true
     })
-    cost: number;
-  
-    @Prop({
-        type: Number,
-        required: true
-    })
-    sellingPrice: number;
-  
-    @Prop({
-        type: Number,
-        required: true
-    })
-    beelderPrice: number;
+    totalQuantity: number;
 }
 
 export const MachinerySchema = SchemaFactory.createForClass(Machinery);

@@ -1,15 +1,14 @@
 import { IsDateString, IsNotEmpty, IsArray, IsString, IsNumber, ValidateNested} from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateClientDto } from 'src/clients/dto/create-client.dto';
-import { CreateMachineryDto } from 'src/machinery/dto/create-machinery.dto';
 
 export class CreateOrderItemDto {
     @IsNotEmpty()
+    @IsString()
     @ApiProperty({
-        type: CreateMachineryDto,
-        description: 'The machinery of the order item'
+        type: String,
+        description: 'The machinery id of the order item'
     })
-    machinery: CreateMachineryDto;
+    machineryId: String;
 
     @IsNumber()
     @ApiProperty({ 
@@ -95,12 +94,12 @@ export class CreateOrderDto {
     orderItems: Array<CreateOrderItemDto>;
 
     @IsNotEmpty()
-    @ValidateNested()
+    @IsString()
     @ApiProperty({
-        type: CreateClientDto,
-        description: 'The client of the order'
+        type: String,
+        description: 'The client id of the order'
     })
-    client: CreateClientDto;
+    clientId: String;
 
     @IsNotEmpty()
     @IsString()

@@ -37,12 +37,12 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
     orderItems?: Array<CreateOrderItemDto>;
 
     @IsNotEmpty()
-    @ValidateNested()
+    @IsString()
     @ApiProperty({
-        type: CreateClientDto,
-        description: 'The client of the order'
+        type: String,
+        description: 'The client id of the order'
     })
-    client: CreateClientDto;
+    clientId: String;
 
     @IsNotEmpty()
     @IsString()

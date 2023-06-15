@@ -29,28 +29,11 @@ export class CreateMachineryDto {
 
     @IsNumber()
     @IsNotEmpty()
-    @ApiProperty({ 
-        type: Number,
-        description: 'The cost of the machinery'
-    })
-    cost: number;
-
-    @IsNumber()
-    @IsNotEmpty()
     @ApiProperty({
         type: Number,
-        description: 'The selling price of the machinery'
+        description: 'The total quantity'
     })
-    sellingPrice: number;
-
-
-    @IsNumber()
-    @IsNotEmpty()
-    @ApiProperty({
-        type: Number,
-        description: 'The beelder price of the machinery'
-    })
-    beelderPrice: number;
+    totalQuantity?: number;
 
     @IsString()
     @IsNotEmpty()
