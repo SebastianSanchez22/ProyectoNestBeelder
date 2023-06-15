@@ -7,9 +7,25 @@ export class CreateMachineryDto {
     @IsNotEmpty()
     @ApiProperty({
         type: String,
+        description: 'The id of the machinery'
+    })
+    machineryId: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
         description: 'The name of the machinery'
     })
-    readonly name: string;
+    name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The category of the machinery'
+    })
+    category: string;
 
     @IsNumber()
     @IsNotEmpty()
@@ -17,7 +33,7 @@ export class CreateMachineryDto {
         type: Number,
         description: 'The cost of the machinery'
     })
-    readonly cost: number;
+    cost: number;
 
     @IsNumber()
     @IsNotEmpty()
@@ -25,7 +41,7 @@ export class CreateMachineryDto {
         type: Number,
         description: 'The selling price of the machinery'
     })
-    readonly sellingPrice: number;
+    sellingPrice: number;
 
 
     @IsNumber()
@@ -34,7 +50,13 @@ export class CreateMachineryDto {
         type: Number,
         description: 'The beelder price of the machinery'
     })
-    readonly beelderPrice: number;
+    beelderPrice: number;
 
-
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The provider id of the machinery'
+    })
+    providerId: string;
 }

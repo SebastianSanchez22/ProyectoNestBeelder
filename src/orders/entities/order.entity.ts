@@ -4,18 +4,20 @@ import { Types } from 'mongoose';
 export class Order {
 
     public static schema_name: string = 'Order';
-    /*
+
     @Prop({
-        type: Number,
+        type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     })
-    OrderId: number;
-    */
+    OrderId: string;
+
     @Prop({
-        type: [{ type: Types.ObjectId, ref: 'Provider' }] 
+        type: Date,
+        required: true,
     })
-    provider: Types.ObjectId;
+    orderDate: Date;
 
     @Prop({
         type: [{ type: Types.ObjectId, ref: 'Machinery' }] 

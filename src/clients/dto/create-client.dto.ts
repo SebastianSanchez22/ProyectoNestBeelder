@@ -3,6 +3,14 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateClientDto {
 
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The id of the client'
+    })
+    clientId: string;
+
     @MinLength(2, {
         message: 'Name is too short. Minimal length is 2 characters',
       })

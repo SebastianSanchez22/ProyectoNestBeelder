@@ -8,17 +8,15 @@ export class CreateProviderDto {
     @IsNotEmpty()
     @ApiProperty({
         type: String,
+        description: 'The id of the provider'
+    })
+    providerId: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
         description: 'The name of the provider'
     })
     name: string;
-
-    @IsArray({
-        message: 'The machinery list of the provider must be an array'
-    })
-    @IsNotEmpty()
-    @ApiProperty({
-        type: CreateMachineryDto,
-        description: 'The machinery list of the provider'
-    })
-    machineryList: CreateMachineryDto[];
 }

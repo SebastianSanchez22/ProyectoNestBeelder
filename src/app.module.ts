@@ -20,18 +20,6 @@ import { Machinery, MachinerySchema } from './machinery/entities/machinery.entit
     ConfigModule.forRoot(),
     OrdersModule, ProvidersModule, MachineryModule, ClientsModule,
     MongooseModule.forRoot(process.env.MONGO_URI),
-    // DefaultAdminModule,
-    /*AdminModule.createAdminAsync({
-      useFactory: () => ({
-        adminPath: '/admin',
-        resources: [
-          { resource: Provider, options: { schema: ProviderSchema } },
-          { resource: Order, options: { schema: OrderSchema } },
-          { resource: Client, options: { schema: ClientSchema } },
-          { resource: Machinery, options: { schema: MachinerySchema } },
-        ],
-      }),
-    }),*/
   ],
   controllers: [AppController],
   providers: [AppService],

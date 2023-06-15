@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Types, Document } from 'mongoose';
 
-export class Provider {
+export class Provider extends Document {
 
     public static schema_name: string = 'Provider';
-    /*
+
     @Prop({
-        type: Number,
+        type: String,
         required: true,
         unique: true,
         index: true
     })
-    providerId: number;
-*/
+    providerId: string;
+
     @Prop({
         type: String,
         required: true,
@@ -20,7 +20,8 @@ export class Provider {
     name: string;
 
     @Prop({
-        type: [{ type: Types.ObjectId, ref: 'Machinery' }] 
+        type: [{ type: Types.ObjectId, ref: 'Machinery' }],
+        default: []
     })
     machineryList: Types.ObjectId[];
   

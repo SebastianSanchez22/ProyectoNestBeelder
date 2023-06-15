@@ -13,6 +13,7 @@ import { Provider, ProviderSchema } from './entities/provider.entity';
       }
     ])],
   controllers: [ProvidersController],
-  providers: [ProvidersService]
+  providers: [ProvidersService],
+  exports: [ProvidersService], // export ProvidersService to be used in other modules
 })
 export class ProvidersModule {}

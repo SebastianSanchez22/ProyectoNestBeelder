@@ -10,6 +10,14 @@ export class UpdateProviderDto extends PartialType(CreateProviderDto) {
     @IsNotEmpty()
     @ApiProperty({
         type: String,
+        description: 'The id of the provider'
+    })
+    providerId?: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
         description: 'The name of the provider'
     })
     name?: string;

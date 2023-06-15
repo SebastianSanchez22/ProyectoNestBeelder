@@ -5,6 +5,14 @@ import { CreateClientDto } from './create-client.dto';
 
 export class UpdateClientDto extends PartialType(CreateClientDto) {
 
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The id of the client'
+    })
+    clientId?: string;
+
     @MinLength(2, {
         message: 'Name is too short. Minimal length is 2 characters',
       })

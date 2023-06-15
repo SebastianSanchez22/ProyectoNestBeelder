@@ -1,16 +1,51 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMachineryDto } from './dto/create-machinery.dto';
 import { UpdateMachineryDto } from './dto/update-machinery.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Machinery } from './entities/machinery.entity';
+import { ProvidersService } from 'src/providers/providers.service';
 
 @Injectable()
 export class MachineryService {
-  constructor(@InjectModel('Machinery') private readonly MachineryModel: Model<Machinery>) {}
+  constructor(@InjectModel('Machinery') private readonly MachineryModel: Model<Machinery>,
+              @Inject(ProvidersService) private readonly providersService: ProvidersService ) {
+  }
 
   async create(createMachineryDto: CreateMachineryDto) : Promise<Machinery> {
-    const newMachinery = new this.MachineryModel(createMachineryDto);
+    const { providerId, ...machineryData } = createMachineryDto;
+    const provider = await this.providersService.findOne(providerId);
+
+    if (!provider) {
+      throw new NotFoundException(`Provider: ${providerId} not found`);
+    }
+
+    const existingMachinery = await this.MachineryModel.findOne({
+      providerId: { $ne: provider._id }, // $ne prevents from finding an existing machinery with the same providerId
+      ...machineryData,
+    }).exec();
+  
+    if (existingMachinery) {
+      throw new Error(`Machinery already assigned to another provider`);
+    }
+
+    const isAlreadyAssigned = provider.machineryList.some(
+      machineryId => machineryId.toString() === existingMachinery._id.toString()
+    );
+  
+    if (isAlreadyAssigned) {
+      throw new Error(`Machinery already assigned to the current provider`);
+    }
+
+
+    const newMachinery = await this.MachineryModel.create({
+      ...machineryData,
+      providerId : provider._id,
+    });
+
+    provider.machineryList.push(newMachinery._id);
+    await provider.save();
+    
     return await newMachinery.save();
   }
 

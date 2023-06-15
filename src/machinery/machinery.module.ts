@@ -3,6 +3,7 @@ import { MachineryService } from './machinery.service';
 import { MachineryController } from './machinery.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Machinery, MachinerySchema } from './entities/machinery.entity';
+import { ProvidersModule } from 'src/providers/providers.module';
 
 
 @Module({
@@ -12,7 +13,9 @@ import { Machinery, MachinerySchema } from './entities/machinery.entity';
         name: Machinery.schema_name,
         schema: MachinerySchema
       }
-    ])],
+    ]),
+    ProvidersModule
+  ],
   controllers: [MachineryController],
   providers: [MachineryService]
 })
