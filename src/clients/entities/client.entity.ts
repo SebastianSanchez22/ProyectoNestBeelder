@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from 'mongoose';
 
-export class Client {
+@Schema()
+export class Client extends Document {
 
     public static schema_name: string = 'Client';
 
@@ -29,12 +31,6 @@ export class Client {
         required: true,
     })
     phone: number;
-
-    @Prop({
-        type: String,
-        required: true,
-    })
-    email: string;
 }
 
 export const ClientSchema = SchemaFactory.createForClass(Client);

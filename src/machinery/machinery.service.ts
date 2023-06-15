@@ -16,10 +16,6 @@ export class MachineryService {
     const { providerId, ...machineryData } = createMachineryDto;
     const provider = await this.providersService.findOne(providerId);
 
-    if (!provider) {
-      throw new NotFoundException(`Provider: ${providerId} not found`);
-    }
-
     const existingMachinery = await this.MachineryModel.findOne({
       providerId: { $ne: provider._id }, // $ne prevents from finding an existing machinery with the same providerId
       ...machineryData,
@@ -36,7 +32,6 @@ export class MachineryService {
     if (isAlreadyAssigned) {
       throw new Error(`Machinery already assigned to the current provider`);
     }
-
 
     const newMachinery = await this.MachineryModel.create({
       ...machineryData,

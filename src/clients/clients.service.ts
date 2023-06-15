@@ -17,9 +17,6 @@ export class ClientsService {
 
   async findAll() : Promise<Client[]> {
     const findAllClients = await this.clientModel.find().exec();
-    if(!findAllClients || findAllClients.length === 0){
-      throw new NotFoundException('No clients found')
-    } 
     return findAllClients;
   }
 

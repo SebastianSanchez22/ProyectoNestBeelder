@@ -1,6 +1,38 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from 'mongoose';
+import { CreateClientDto } from "src/clients/dto/create-client.dto";
+import { CreateMachineryDto } from "src/machinery/dto/create-machinery.dto";
 
+@Schema()
+export class OrderItem {
+    @Prop({ 
+        type: CreateMachineryDto,
+        required: true
+    })
+    machinery: CreateMachineryDto;
+
+    @Prop({
+        type: Number,
+        required: true
+    })
+    quantity: number;
+
+    @Prop({ type: Date, required: true })
+    rentInitialDate: Date;
+
+    @Prop({ type: Date, required: true })
+    rentFinalDate: Date;
+
+    @Prop({ type: String, required: true })
+    priceTimeUnit: string;
+
+    @Prop({ type: Number, required: true})
+    pricePerHour: number;
+
+    @Prop({ type: Number, required: true })
+    totalPrice: number;
+}
+
+@Schema()
 export class Order {
 
     public static schema_name: string = 'Order';
@@ -19,28 +51,23 @@ export class Order {
     })
     orderDate: Date;
 
-    @Prop({
-        type: [{ type: Types.ObjectId, ref: 'Machinery' }] 
-    })
-    machineryList: Types.ObjectId[];
-
-    @Prop({
-        type: [{ type: Types.ObjectId, ref: 'Client' }]
-    })
-    client: Types.ObjectId;
-  
-    @Prop({
-        type: Date,
-        required: true,
-        default: Date.now
-    })
-    initialDate: Date;
-  
-    @Prop({
-        type: Date,
+    @Prop({ 
+        type: Array<OrderItem>, 
         required: true
     })
-    finalDate: Date;
+    OrderItems: Array<OrderItem>;
+
+    @Prop({
+        type: CreateClientDto,
+    })
+    client: CreateClientDto;
+
+    @Prop({
+        type: String,
+        required: true,
+    })
+    seller: string;
+  
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

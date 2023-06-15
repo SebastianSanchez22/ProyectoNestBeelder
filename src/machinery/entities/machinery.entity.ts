@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types, Document } from 'mongoose';
+import { CreateProviderDto } from "src/providers/dto/create-provider.dto";
 
 @Schema()
 export class Machinery extends Document {
@@ -21,9 +22,9 @@ export class Machinery extends Document {
     name: string;
 
     @Prop({
-        type: [{ type: Types.ObjectId, ref: 'Provider' }] 
+        type: Array<CreateProviderDto>, 
     })
-    provider: Types.ObjectId[];
+    provider: Array<CreateProviderDto>;
 
     @Prop({
         type: String,

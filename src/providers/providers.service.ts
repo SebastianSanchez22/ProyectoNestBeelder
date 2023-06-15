@@ -16,9 +16,6 @@ export class ProvidersService {
 
   async findAll() : Promise<Provider[]> {
     const findAllProviders = await this.ProviderModel.find().exec();
-    if(!findAllProviders || findAllProviders.length === 0){
-      throw new NotFoundException('No Providers found')
-    } 
     return findAllProviders;
   }
 

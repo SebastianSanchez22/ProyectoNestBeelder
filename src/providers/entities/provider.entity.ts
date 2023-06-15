@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types, Document } from 'mongoose';
+import { Document } from 'mongoose';
+import { CreateMachineryDto } from 'src/machinery/dto/create-machinery.dto';
 
+@Schema()
 export class Provider extends Document {
 
     public static schema_name: string = 'Provider';
@@ -20,10 +22,9 @@ export class Provider extends Document {
     name: string;
 
     @Prop({
-        type: [{ type: Types.ObjectId, ref: 'Machinery' }],
-        default: []
+        type: Array<CreateMachineryDto>
     })
-    machineryList: Types.ObjectId[];
+    machineryList: Array<CreateMachineryDto>;
   
 }
 

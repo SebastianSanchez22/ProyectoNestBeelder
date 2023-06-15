@@ -15,10 +15,7 @@ export class OrdersService {
   }
 
   async findAll() : Promise<Order[]> {
-    const findAllOrders = await this.OrderModel.find().exec();
-    if(!findAllOrders || findAllOrders.length === 0){
-      throw new NotFoundException('No Orders found')
-    } 
+    const findAllOrders = await this.OrderModel.find().exec(); 
     return findAllOrders;
   }
 
