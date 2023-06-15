@@ -58,7 +58,7 @@ agent.addDataSource(createMongooseDataSource(connection, { flattenMode: 'auto' }
 // });
 
 // Expose an HTTP endpoint.
-agent.mountOnStandaloneServer(Number(process.env.APPLICATION_PORT));
+agent.mountOnStandaloneServer(Number(process.env.APPLICATION_PORT), 'localhost');
 
 // Start the agent.
 agent.start().catch(error => {

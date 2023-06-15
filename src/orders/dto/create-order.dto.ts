@@ -82,16 +82,13 @@ export class CreateOrderDto {
     })
     orderDate: Date;
 
-    @IsArray({
-        message: 'The order items must be an array'
-    })
     @IsNotEmpty()
-    @ValidateNested({ each: true })
+    @IsString()
     @ApiProperty({
-        type: CreateOrderItemDto,
-        description: 'The machinery list of the order'
+        type: String,
+        description: 'The name of the seller'
     })
-    orderItems: Array<CreateOrderItemDto>;
+    seller: string;
 
     @IsNotEmpty()
     @IsString()
@@ -105,7 +102,54 @@ export class CreateOrderDto {
     @IsString()
     @ApiProperty({
         type: String,
-        description: 'The name of the seller'
+        description: 'The NIT of the client'
     })
-    seller: string;
+    NIT: String;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The name of the buyer'
+    })
+    buyer: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The phone number of the buyer'
+    })
+    buyerPhone: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The name of the payment coordinator'
+    })
+    paymentCoordinator: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: Number,
+        description: 'The phone number of the payment coordinator'
+    })
+    paymentCoordinatorPhone: number;
+
+    @IsArray({
+        message: 'The order items must be an array'
+    })
+    @IsNotEmpty()
+    @ValidateNested({ each: true })
+    @ApiProperty({
+        type: CreateOrderItemDto,
+        description: 'The machinery list of the order'
+    })
+    orderItems: Array<CreateOrderItemDto>;
+
+    
+
+    
 }

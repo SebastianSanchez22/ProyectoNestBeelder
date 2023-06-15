@@ -25,6 +25,62 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
     })
     orderDate?: Date;
 
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The name of the seller'
+    })
+    seller?: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The client id of the order'
+    })
+    clientId?: String;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The NIT of the client'
+    })
+    NIT: String;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The name of the buyer'
+    })
+    buyer?: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The phone number of the buyer'
+    })
+    buyerPhone?: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: String,
+        description: 'The name of the payment coordinator'
+    })
+    paymentCoordinator?: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty({
+        type: Number,
+        description: 'The phone number of the payment coordinator'
+    })
+    paymentCoordinatorPhone?: number;
+
     @IsArray({
         message: 'The order items must be an array'
     })
@@ -35,20 +91,4 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
         description: 'The machinery list of the order'
     })
     orderItems?: Array<CreateOrderItemDto>;
-
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty({
-        type: String,
-        description: 'The client id of the order'
-    })
-    clientId: String;
-
-    @IsNotEmpty()
-    @IsString()
-    @ApiProperty({
-        type: String,
-        description: 'The name of the seller'
-    })
-    seller: string;
 }

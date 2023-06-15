@@ -50,11 +50,11 @@ export class Order {
     })
     orderDate: Date;
 
-    @Prop({ 
-        type: Array<OrderItem>, 
-        required: true
+    @Prop({
+        type: String,
+        required: true,
     })
-    OrderItems: Array<OrderItem>;
+    seller: string;
 
     @Prop({
         type: CreateClientDto,
@@ -65,7 +65,37 @@ export class Order {
         type: String,
         required: true,
     })
-    seller: string;
+    NIT: string;
+
+    @Prop({
+        type: String,
+        required: true,
+    })
+    buyer: string;
+
+    @Prop({
+        type: Number,
+        required: true,
+    })
+    buyerPhone: number;
+
+    @Prop({
+        type: String,
+        required: true,
+    })
+    paymentCoordinator: string;
+
+    @Prop({
+        type: Number,
+        required: true,
+    })
+    paymentCoordinatorPhone: number;
+
+    @Prop({ 
+        type: Array<OrderItem>, 
+        required: true
+    })
+    OrderItems: Array<OrderItem>;
   
 }
 

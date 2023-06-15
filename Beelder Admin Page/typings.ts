@@ -1,6 +1,8 @@
+import { OrderItemInterface } from "./models/orders";
+
 /* eslint-disable */
 export type Schema = {
-  'clients': {
+  'clients': { 
     plain: {
       'clientId': string;
       'name': string;
@@ -20,6 +22,16 @@ export type Schema = {
   };
   'orders': {
     plain: {
+      'orderId': string;
+      'orderDate': string;
+      'seller': string;
+      'clientId': string;
+      'NIT': string;
+      'buyer': string;
+      'buyerPhone': string;
+      'paymentCoordinator': string;
+      'paymentCoordinatorPhone': number;
+      'orderItems': Array<OrderItemInterface>;
       '_id': string;
     };
     nested: {};
