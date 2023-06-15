@@ -1,0 +1,194 @@
+{
+  "collections": [
+    {
+      "actions": [],
+      "fields": [
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "_id",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": true,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "address",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": false,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "clientId",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": false,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "name",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": false,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "phone",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": false,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "Number",
+          "validations": []
+        }
+      ],
+      "icon": null,
+      "integration": null,
+      "isReadOnly": false,
+      "isSearchable": true,
+      "isVirtual": false,
+      "name": "clients",
+      "onlyForRelationships": false,
+      "paginationType": "page",
+      "segments": []
+    },
+    {
+      "actions": [],
+      "fields": [
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "_id",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": true,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        }
+      ],
+      "icon": null,
+      "integration": null,
+      "isReadOnly": false,
+      "isSearchable": true,
+      "isVirtual": false,
+      "name": "machinery",
+      "onlyForRelationships": false,
+      "paginationType": "page",
+      "segments": []
+    },
+    {
+      "actions": [],
+      "fields": [
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "_id",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": true,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        }
+      ],
+      "icon": null,
+      "integration": null,
+      "isReadOnly": false,
+      "isSearchable": true,
+      "isVirtual": false,
+      "name": "orders",
+      "onlyForRelationships": false,
+      "paginationType": "page",
+      "segments": []
+    },
+    {
+      "actions": [],
+      "fields": [
+        {
+          "defaultValue": null,
+          "enums": null,
+          "field": "_id",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": true,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        }
+      ],
+      "icon": null,
+      "integration": null,
+      "isReadOnly": false,
+      "isSearchable": true,
+      "isVirtual": false,
+      "name": "providers",
+      "onlyForRelationships": false,
+      "paginationType": "page",
+      "segments": []
+    }
+  ],
+  "metadata": {
+    "liana": "forest-nodejs-agent",
+    "liana_version": "1.11.0",
+    "liana_features": null,
+    "stack": {"engine": "nodejs", "engine_version": "16.17.0"}
+  }
+}

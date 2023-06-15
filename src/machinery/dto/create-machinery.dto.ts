@@ -33,7 +33,7 @@ export class CreateMachineryDto {
         type: Number,
         description: 'The total quantity'
     })
-    totalQuantity?: number;
+    totalQuantity: number;
 
     @IsString()
     @IsNotEmpty()
