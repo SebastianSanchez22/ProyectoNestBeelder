@@ -1,8 +1,6 @@
-import { OrderItemInterface } from "./models/orders";
-
 /* eslint-disable */
 export type Schema = {
-  'clients': { 
+  'clients': {
     plain: {
       'clientId': string;
       'name': string;
@@ -15,6 +13,11 @@ export type Schema = {
   };
   'machinery': {
     plain: {
+      'machineryId': string;
+      'name': string;
+      'category': string;
+      'totalQuantity': number;
+      'providerId': string;
       '_id': string;
     };
     nested: {};
@@ -31,7 +34,7 @@ export type Schema = {
       'buyerPhone': string;
       'paymentCoordinator': string;
       'paymentCoordinatorPhone': number;
-      'orderItems': Array<OrderItemInterface>;
+      'orderItems': Array<any>;
       '_id': string;
     };
     nested: {};
@@ -39,6 +42,8 @@ export type Schema = {
   };
   'providers': {
     plain: {
+      'providerId': string;
+      'name': string;
       '_id': string;
     };
     nested: {};
