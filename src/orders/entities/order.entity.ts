@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { CreateClientDto } from "src/clients/dto/create-client.dto";
+import { UnitPriceTimeUnits } from "../common/unit-price-time-units";
 
 @Schema()
 export class OrderItem {
@@ -21,8 +21,17 @@ export class OrderItem {
     @Prop({ type: Date, required: true })
     rentFinalDate: Date;
 
-    @Prop({ type: String, required: true })
-    priceTimeUnit: string;
+    @Prop({ type: Number, required: true })
+    unitPrice: number;
+
+    @Prop({
+        type: String, 
+        enum: Object.values(UnitPriceTimeUnits), 
+        required: true })
+    unitPriceTimeUnit: string; // enum (hour, day, week, month)
+
+    @Prop({ type: Number, required: true })
+    unitCost: number;
 
     @Prop({ type: Number, required: true})
     pricePerHour: number;
@@ -57,9 +66,9 @@ export class Order {
     seller: string;
 
     @Prop({
-        type: CreateClientDto,
+        type: String,
     })
-    client: CreateClientDto;
+    clientId: string;
 
     @Prop({
         type: String,
@@ -92,7 +101,7 @@ export class Order {
     paymentCoordinatorPhone: number;
 
     @Prop({ 
-        type: Array<OrderItem>, 
+        type: Array<OrderItem>(), 
         required: true
     })
     OrderItems: Array<OrderItem>;

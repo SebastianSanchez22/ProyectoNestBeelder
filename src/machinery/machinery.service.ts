@@ -4,17 +4,17 @@ import { UpdateMachineryDto } from './dto/update-machinery.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Machinery } from './entities/machinery.entity';
-import { ProvidersService } from 'src/providers/providers.service';
+import { SuppliersService } from 'src/suppliers/suppliers.service';
 
 @Injectable()
 export class MachineryService {
   constructor(@InjectModel('Machinery') private readonly MachineryModel: Model<Machinery>,
-              @Inject(ProvidersService) private readonly providersService: ProvidersService ) {
+              @Inject(SuppliersService) private readonly SuppliersService: SuppliersService ) {
   }
 
   async create(createMachineryDto: CreateMachineryDto) : Promise<Machinery> {
     const { providerId, ...machineryData } = createMachineryDto;
-    const provider = await this.providersService.findOne(providerId);
+    const provider = await this.SuppliersService.findOne(providerId);
 
     const existingMachinery = await this.MachineryModel.findOne({
       providerId: { $ne: provider._id }, // $ne prevents from finding an existing machinery with the same providerId
@@ -39,7 +39,8 @@ export class MachineryService {
     });
 
     provider.machineryList.push(newMachinery._id);
-    await provider.save();
+    //await provider.save();
+    
     
     return await newMachinery.save();
   }

@@ -1,34 +1,34 @@
 import { IsString, IsNotEmpty, IsArray} from '@nestjs/class-validator';
 import { ApiProperty } from "@nestjs/swagger";
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateProviderDto } from './create-provider.dto';
+import { CreateSupplierDto } from './create-supplier.dto';
 import { CreateMachineryDto } from 'src/machinery/dto/create-machinery.dto';
 
-export class UpdateProviderDto extends PartialType(CreateProviderDto) {
+export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
 
     @IsString()
     @IsNotEmpty()
     @ApiProperty({
         type: String,
-        description: 'The id of the provider'
+        description: 'The id of the supplier'
     })
-    providerId?: string;
+    supplierId?: string;
 
     @IsString()
     @IsNotEmpty()
     @ApiProperty({
         type: String,
-        description: 'The name of the provider'
+        description: 'The name of the supplier'
     })
     name?: string;
 
     @IsArray({
-        message: 'The machinery list of the provider must be an array'
+        message: 'The machinery list of the supplier must be an array'
     })
     @IsNotEmpty()
     @ApiProperty({
         type: CreateMachineryDto,
-        description: 'The machinery list of the provider'
+        description: 'The machinery list of the supplier'
     })
     machineryList?: CreateMachineryDto[];
 

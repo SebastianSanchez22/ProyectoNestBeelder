@@ -1,5 +1,6 @@
 import { IsDateString, IsNotEmpty, IsArray, IsString, IsNumber, ValidateNested} from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { UnitPriceTimeUnits } from '../common/unit-price-time-units';
 
 export class CreateOrderItemDto {
     @IsNotEmpty()
@@ -41,7 +42,7 @@ export class CreateOrderItemDto {
     @IsNotEmpty()
     @ApiProperty({
         type: String,
-        description: 'The price time unit of the machinery'
+        description: 'The price time unit of the machinery (hour, day, week, month)'
     })
     priceTimeUnit: string;
 
@@ -117,10 +118,10 @@ export class CreateOrderDto {
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        type: String,
+        type: Number,
         description: 'The phone number of the buyer'
     })
-    buyerPhone: string;
+    buyerPhone: number;
 
     @IsNotEmpty()
     @IsString()
@@ -144,10 +145,10 @@ export class CreateOrderDto {
     @IsNotEmpty()
     @ValidateNested({ each: true })
     @ApiProperty({
-        type: CreateOrderItemDto,
+        type: [CreateOrderItemDto],
         description: 'The machinery list of the order'
     })
-    orderItems: Array<CreateOrderItemDto>;
+    orderItems: CreateOrderItemDto[];
 
     
 

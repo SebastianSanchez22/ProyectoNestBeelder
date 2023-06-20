@@ -2,7 +2,6 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateOrderDto } from './create-order.dto';
 import { IsDateString, IsNotEmpty, IsArray, IsString, ValidateNested} from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateClientDto } from 'src/clients/dto/create-client.dto';
 import { CreateOrderItemDto } from './create-order.dto';
 
 export class UpdateOrderDto extends PartialType(CreateOrderDto) {
@@ -60,10 +59,10 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
     @IsNotEmpty()
     @IsString()
     @ApiProperty({
-        type: String,
+        type: Number,
         description: 'The phone number of the buyer'
     })
-    buyerPhone?: string;
+    buyerPhone?: number;
 
     @IsNotEmpty()
     @IsString()

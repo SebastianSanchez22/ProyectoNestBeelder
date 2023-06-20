@@ -3,9 +3,9 @@ import { Document } from 'mongoose';
 import { CreateMachineryDto } from 'src/machinery/dto/create-machinery.dto';
 
 @Schema()
-export class Provider extends Document {
+export class Supplier extends Document {
 
-    public static schema_name: string = 'Provider';
+    public static schema_name: string = 'Supplier';
 
     @Prop({
         type: String,
@@ -13,7 +13,7 @@ export class Provider extends Document {
         unique: true,
         index: true
     })
-    providerId: string;
+    supplierId: string;
 
     @Prop({
         type: String,
@@ -28,4 +28,4 @@ export class Provider extends Document {
   
 }
 
-export const ProviderSchema = SchemaFactory.createForClass(Provider);
+export const SupplierSchema = SchemaFactory.createForClass(Supplier);
