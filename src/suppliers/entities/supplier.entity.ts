@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { CreateMachineryDto } from 'src/machinery/dto/create-machinery.dto';
+import { CreateMachineDto } from 'src/machinery/dto/create-machine.dto';
 
 @Schema()
 export class Supplier extends Document {
@@ -22,9 +22,9 @@ export class Supplier extends Document {
     name: string;
 
     @Prop({
-        type: Array<CreateMachineryDto>
+        type: Array<CreateMachineDto>
     })
-    machineryList: Array<CreateMachineryDto>;
+    machinesList: Array<CreateMachineDto>;
   
 }
 

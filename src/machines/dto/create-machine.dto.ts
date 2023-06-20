@@ -1,9 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMachineryDto } from './create-machinery.dto';
 import { IsString, IsNotEmpty, IsNumber } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateMachineryDto extends PartialType(CreateMachineryDto) {
+export class CreateMachineDto {
 
     @IsString()
     @IsNotEmpty()
@@ -11,7 +9,7 @@ export class UpdateMachineryDto extends PartialType(CreateMachineryDto) {
         type: String,
         description: 'The id of the machinery'
     })
-    machineryId?: string;
+    machineId: string;
 
     @IsString()
     @IsNotEmpty()
@@ -19,7 +17,7 @@ export class UpdateMachineryDto extends PartialType(CreateMachineryDto) {
         type: String,
         description: 'The name of the machinery'
     })
-    name?: string;
+    name: string;
 
     @IsString()
     @IsNotEmpty()
@@ -27,7 +25,7 @@ export class UpdateMachineryDto extends PartialType(CreateMachineryDto) {
         type: String,
         description: 'The category of the machinery'
     })
-    category?: string;
+    category: string;
 
     @IsNumber()
     @IsNotEmpty()
@@ -35,7 +33,7 @@ export class UpdateMachineryDto extends PartialType(CreateMachineryDto) {
         type: Number,
         description: 'The total quantity'
     })
-    totalQuantity?: number;
+    totalQuantity: number;
 
     @IsString()
     @IsNotEmpty()
@@ -43,5 +41,5 @@ export class UpdateMachineryDto extends PartialType(CreateMachineryDto) {
         type: String,
         description: 'The provider id of the machinery'
     })
-    providerId?: string;
+    supplierId: string;
 }

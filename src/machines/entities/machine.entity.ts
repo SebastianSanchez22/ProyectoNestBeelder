@@ -3,9 +3,9 @@ import { Types, Document } from 'mongoose';
 import { CreateSupplierDto } from "src/suppliers/dto/create-supplier.dto";
 
 @Schema()
-export class Machinery extends Document {
+export class Machine extends Document {
 
-    public static schema_name: string = 'Machinery';
+    public static schema_name: string = 'Machine';
 
     @Prop({
         type: String,
@@ -13,7 +13,7 @@ export class Machinery extends Document {
         unique: true,
         index: true
     })
-    machineryId: string;
+    machineId: string;
 
     @Prop({
         type: String,
@@ -39,7 +39,7 @@ export class Machinery extends Document {
     totalQuantity: number;
 }
 
-export const MachinerySchema = SchemaFactory.createForClass(Machinery);
+export const MachineSchema = SchemaFactory.createForClass(Machine);
 
 
 

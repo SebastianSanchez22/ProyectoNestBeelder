@@ -2,7 +2,7 @@ import { IsString, IsNotEmpty, IsArray} from '@nestjs/class-validator';
 import { ApiProperty } from "@nestjs/swagger";
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateSupplierDto } from './create-supplier.dto';
-import { CreateMachineryDto } from 'src/machinery/dto/create-machinery.dto';
+import { CreateMachineDto } from 'src/machinery/dto/create-machine.dto';
 
 export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
 
@@ -27,9 +27,9 @@ export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
     })
     @IsNotEmpty()
     @ApiProperty({
-        type: CreateMachineryDto,
+        type: CreateMachineDto,
         description: 'The machinery list of the supplier'
     })
-    machineryList?: CreateMachineryDto[];
+    machineryList?: CreateMachineDto[];
 
 }
