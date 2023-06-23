@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { CreateMachineDto } from 'src/machinery/dto/create-machine.dto';
+import { CreateMachineDto } from 'src/machines/dto/create-machine.dto';
 
 @Schema()
 export class Supplier extends Document {
