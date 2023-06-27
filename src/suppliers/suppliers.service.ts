@@ -4,6 +4,7 @@ import { UpdateSupplierDto } from './dto/update-supplier.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Supplier, SupplierSchema } from './entities/supplier.entity';
+import { CreateMachineDto } from 'src/machines/dto/create-machine.dto';
 
 @Injectable()
 export class SuppliersService {
@@ -36,6 +37,18 @@ export class SuppliersService {
    }
    return existingSupplier;
   }
+
+  async addMachine(SupplierId: string, newMachine: String): Promise<Supplier> {
+  const existingSupplier = await this.SupplierModel.findById(SupplierId).exec();
+  if (!existingSupplier) {
+    throw new NotFoundException(`Supplier #${SupplierId} not found`);
+  }
+
+  existingSupplier.machinesList = existingSupplier.machinesList.concat(newMachine); // Concatenar la nueva máquina a la lista existente
+
+  const updatedSupplier = await existingSupplier.save();
+  return updatedSupplier;
+}
 
   async remove(SupplierId: string) : Promise<Supplier> {
     const deletedSupplier = await this.SupplierModel.findByIdAndDelete(SupplierId);

@@ -30,6 +30,6 @@ export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
         type: CreateMachineDto,
         description: 'The machinery list of the supplier'
     })
-    machineryList?: CreateMachineDto[];
+    machinesList?: String[];
 
 }

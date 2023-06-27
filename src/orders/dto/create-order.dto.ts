@@ -75,7 +75,7 @@ export class CreateOrderDto {
 
     @IsDateString({
         message: 'The date of the order must be a date string'
-    }) // Valida si sigue el formato ISO 8601, por ejemplo: YYYY-MM-DD.
+    }) // Valida si sigue el formato ISO 8601, por ejemplo: YYYY-MM-DD HH-MM-SS.
     @IsNotEmpty()
     @ApiProperty({
         type: Date,

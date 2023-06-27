@@ -21,10 +21,11 @@ export class Supplier extends Document {
     })
     name: string;
 
+    // Almaceno solo los id de las maquinas
     @Prop({
-        type: Array<CreateMachineDto>
+        type: [String],
     })
-    machinesList: Array<CreateMachineDto>;
+    machinesList:String[];
   
 }
 

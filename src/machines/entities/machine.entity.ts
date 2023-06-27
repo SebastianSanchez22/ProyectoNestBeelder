@@ -22,11 +22,6 @@ export class Machine extends Document {
     name: string;
 
     @Prop({
-        type: Array<CreateSupplierDto>, 
-    })
-    provider: Array<CreateSupplierDto>;
-
-    @Prop({
         type: String,
         required: true,
     })
@@ -37,6 +32,11 @@ export class Machine extends Document {
         required: true
     })
     totalQuantity: number;
+
+    @Prop({
+        type: String, 
+    })
+    supplierId: string;
 }
 
 export const MachineSchema = SchemaFactory.createForClass(Machine);

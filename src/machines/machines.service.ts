@@ -14,42 +14,30 @@ export class MachinesService {
 
   async create(createMachineDto: CreateMachineDto) : Promise<Machine> {
     const { supplierId, ...machinesData } = createMachineDto;
+
     const supplier = await this.SuppliersService.findOne(supplierId);
 
-    const existingMachines = await this.MachinesModel.findOne({
-      supplierId: { $ne: supplier._id }, // $ne prevents from finding an existing machines with the same supplierId
-      ...machinesData,
+    const existingMachine = await this.MachinesModel.findOne({
+      name: machinesData.name
     }).exec();
-  
-    if (existingMachines) {
-      throw new Error(`Machine already assigned to another supplier`);
+
+    if (existingMachine) {
+      console.log(existingMachine)
+      throw new Error(`Machine with name ${machinesData.name} is already assigned to another supplier`);
     }
 
-    const isAlreadyAssigned = supplier.machinesList.some(
-      machinesId => machinesId.toString() === existingMachines._id.toString()
-    );
-  
-    if (isAlreadyAssigned) {
-      throw new Error(`Machine already assigned to the current supplier`);
-    }
-
-    const newMachines = await this.MachinesModel.create({
+    const newMachine = await this.MachinesModel.create({
       ...machinesData,
       supplierId : supplier._id,
     });
 
-    supplier.machinesList.push(newMachines._id);
-    //await supplier.save();
+    await this.SuppliersService.addMachine(supplierId, machinesData.machineId);
     
-    
-    return await newMachines.save();
+    return await newMachine.save();
   }
 
   async findAll() : Promise<Machine[]> {
     const findAllMachineries = await this.MachinesModel.find().exec();
-    if(!findAllMachineries || findAllMachineries.length === 0){
-      throw new NotFoundException('No machineries found')
-    } 
     return findAllMachineries;
   }
 
