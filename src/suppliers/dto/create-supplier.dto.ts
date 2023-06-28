@@ -18,4 +18,20 @@ export class CreateSupplierDto {
         description: 'The name of the supplier'
     })
     name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The timezone of the supplier'
+    })
+    timezone: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The country of the supplier'
+    })
+    country: string;
 }

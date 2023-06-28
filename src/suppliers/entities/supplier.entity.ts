@@ -21,6 +21,18 @@ export class Supplier extends Document {
     })
     name: string;
 
+    @Prop({
+        type: String,
+        required: true,
+    })
+    timezone: string;
+
+    @Prop({
+        type: String,
+        required: true,
+    })
+    country: string;
+
     // Almaceno solo los id de las maquinas
     @Prop({
         type: [String],

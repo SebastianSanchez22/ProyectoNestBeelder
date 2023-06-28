@@ -1,6 +1,5 @@
 import { IsDateString, IsNotEmpty, IsArray, IsString, IsNumber, ValidateNested} from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { UnitPriceTimeUnits } from '../common/unit-price-time-units';
 
 export class CreateOrderItemDto {
     @IsNotEmpty()
@@ -26,7 +25,7 @@ export class CreateOrderItemDto {
         type: Date,
         description: 'The initial rent date of the machinery'
     })
-    InitialRentDate: Date;
+    rentInitialDate: Date;
 
     @IsDateString({
         message: 'The final rent date of the machinery must be a date string'
@@ -36,15 +35,30 @@ export class CreateOrderItemDto {
         type: Date,
         description: 'The final rent date of the machinery'
     })
-    FinalRentDate: Date;
+    rentFinalDate: Date;
 
-    @IsString()
+    @IsNumber()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: Number,
+        description: 'The unit price of the machinery'
+    })
+    unitPrice: number;
+
     @IsNotEmpty()
     @ApiProperty({
         type: String,
         description: 'The price time unit of the machinery (hour, day, week, month)'
     })
-    priceTimeUnit: string;
+    unitPriceTimeUnit: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: Number,
+        description: 'The unit cost of the machinery'
+    })
+    unitCost: number;
 
     @IsNumber()
     @IsNotEmpty()
@@ -97,7 +111,7 @@ export class CreateOrderDto {
         type: String,
         description: 'The client id of the order'
     })
-    clientId: String;
+    clientId: string;
 
     @IsNotEmpty()
     @IsString()
@@ -105,7 +119,7 @@ export class CreateOrderDto {
         type: String,
         description: 'The NIT of the client'
     })
-    NIT: String;
+    NIT: string;
 
     @IsNotEmpty()
     @IsString()

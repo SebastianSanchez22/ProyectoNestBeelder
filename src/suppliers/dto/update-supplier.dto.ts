@@ -22,6 +22,22 @@ export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
     })
     name?: string;
 
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The timezone of the supplier'
+    })
+    timezone?: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({
+        type: String,
+        description: 'The country of the supplier'
+    })
+    country?: string;
+
     @IsArray({
         message: 'The machinery list of the supplier must be an array'
     })

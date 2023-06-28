@@ -38,7 +38,7 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
         type: String,
         description: 'The client id of the order'
     })
-    clientId?: String;
+    clientId?: string;
 
     @IsNotEmpty()
     @IsString()
@@ -46,7 +46,7 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
         type: String,
         description: 'The NIT of the client'
     })
-    NIT: String;
+    NIT: string;
 
     @IsNotEmpty()
     @IsString()
