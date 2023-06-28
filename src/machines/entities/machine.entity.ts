@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types, Document } from 'mongoose';
-import { CreateSupplierDto } from "src/suppliers/dto/create-supplier.dto";
 
 @Schema()
 export class Machine extends Document {
@@ -39,7 +38,9 @@ export class Machine extends Document {
     supplierId: string;
 }
 
-export const MachineSchema = SchemaFactory.createForClass(Machine);
+export const MachineSchema = SchemaFactory.createForClass(Machine).index(
+    {name: 1, supplierId: 1}, {unique: true} 
+);
 
 
 

@@ -3,57 +3,64 @@ import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Supplier, SupplierSchema } from './entities/supplier.entity';
-import { CreateMachineDto } from 'src/machines/dto/create-machine.dto';
+import { Supplier } from './entities/supplier.entity';
 
 @Injectable()
 export class SuppliersService {
   constructor(@InjectModel('Supplier') private readonly SupplierModel: Model<Supplier>) {}
 
   async create(createSupplierDto: CreateSupplierDto) : Promise<Supplier> {
-    const newSupplier = new this.SupplierModel(createSupplierDto);
-    return await newSupplier.save();
+    return await (new this.SupplierModel(createSupplierDto)).save();
   }
 
   async findAll() : Promise<Supplier[]> {
-    const findAllSuppliers = await this.SupplierModel.find().exec();
-    return findAllSuppliers;
+    return await this.SupplierModel.find();
   }
 
-  async findOne(SupplierId: string) : Promise<Supplier> {
-    const existingSupplier = await this.SupplierModel.findById(SupplierId).exec();
+  async findBySupplierId(supplierId: string) : Promise<Supplier> {
+    const existingSupplier = await this.SupplierModel.findOne({supplierId: supplierId});
+    if (!existingSupplier) {
+      throw new NotFoundException(`Supplier #${supplierId} not found`);
+    }
+    return existingSupplier;
+  }
+
+  async findOne(supplierId: string) : Promise<Supplier> {
+    const existingSupplier = await this.SupplierModel.findById(supplierId);
    if (!existingSupplier) {
-    throw new NotFoundException(`Supplier #${SupplierId} not found`);
+    throw new NotFoundException(`Supplier #${supplierId} not found`);
    }
    return existingSupplier;
   }
 
-  async update(SupplierId: string, updateSupplierDto: UpdateSupplierDto) : Promise<Supplier> {
+  async update(supplierId: string, updateSupplierDto: UpdateSupplierDto) : Promise<Supplier> {
     const existingSupplier = await this.SupplierModel.findByIdAndUpdate(
-      SupplierId, updateSupplierDto, { new: true }
+      supplierId, updateSupplierDto, { new: true }
     );
    if (!existingSupplier) {
-     throw new NotFoundException(`Supplier #${SupplierId} not found`);
+     throw new NotFoundException(`Supplier #${supplierId} not found`);
    }
    return existingSupplier;
   }
 
-  async addMachine(SupplierId: string, newMachine: String): Promise<Supplier> {
-  const existingSupplier = await this.SupplierModel.findById(SupplierId).exec();
+  async addMachine(supplierId: string, newMachineId: String): Promise<Supplier> {
+  const existingSupplier = await this.SupplierModel.findOne({
+    supplierId: supplierId,
+  });
   if (!existingSupplier) {
-    throw new NotFoundException(`Supplier #${SupplierId} not found`);
+    throw new NotFoundException(`Supplier #${supplierId} not found`);
   }
 
-  existingSupplier.machinesList = existingSupplier.machinesList.concat(newMachine); // Concatenar la nueva máquina a la lista existente
+  existingSupplier.machinesList = existingSupplier.machinesList.concat(newMachineId); // Concatenar la nueva máquina a la lista existente
 
   const updatedSupplier = await existingSupplier.save();
   return updatedSupplier;
 }
 
-  async remove(SupplierId: string) : Promise<Supplier> {
-    const deletedSupplier = await this.SupplierModel.findByIdAndDelete(SupplierId);
+  async remove(supplierId: string) : Promise<Supplier> {
+    const deletedSupplier = await this.SupplierModel.findByIdAndDelete(supplierId);
     if (!deletedSupplier) {
-      throw new NotFoundException(`Supplier #${SupplierId} not found`);
+      throw new NotFoundException(`Supplier #${supplierId} not found`);
     }
     return deletedSupplier;
   }

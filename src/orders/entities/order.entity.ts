@@ -51,7 +51,7 @@ export class Order {
         unique: true,
         index: true
     })
-    OrderId: string;
+    orderId: string;
 
     @Prop({
         type: Date,
@@ -104,7 +104,7 @@ export class Order {
         type: Array<OrderItem>(), 
         required: true
     })
-    OrderItems: Array<OrderItem>;
+    orderItems: Array<OrderItem>;
   
 }
 

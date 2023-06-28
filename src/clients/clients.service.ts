@@ -11,17 +11,23 @@ export class ClientsService {
   constructor(@InjectModel('Client') private readonly clientModel: Model<Client>) {}
 
   async create(createClientDto: CreateClientDto) : Promise<Client> {
-    const newClient = new this.clientModel(createClientDto);
-    return await newClient.save();
+    return await (new this.clientModel(createClientDto)).save();
   }
 
   async findAll() : Promise<Client[]> {
-    const findAllClients = await this.clientModel.find().exec();
-    return findAllClients;
+    return await this.clientModel.find();
+  }
+
+  async findByClientId(clientId: string) : Promise<Client> {
+    const existingClient = await this.clientModel.findOne({clientId: clientId});
+    if (!existingClient) {
+      throw new NotFoundException(`Client #${clientId} not found`);
+    }
+    return existingClient;
   }
 
   async findOne(clientId: string) : Promise<Client> {
-    const existingClient = await this.clientModel.findById(clientId).exec();
+    const existingClient = await this.clientModel.findById(clientId);
    if (!existingClient) {
     throw new NotFoundException(`Client #${clientId} not found`);
    }

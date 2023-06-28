@@ -4,6 +4,7 @@ import { UpdateMachineDto } from './dto/update-machine.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Machine } from './entities/machine.entity';
+import { Supplier } from 'src/suppliers/entities/supplier.entity';
 import { SuppliersService } from 'src/suppliers/suppliers.service';
 
 @Injectable()
@@ -12,57 +13,67 @@ export class MachinesService {
               @Inject(SuppliersService) private readonly SuppliersService: SuppliersService ) {
   }
 
-  async create(createMachineDto: CreateMachineDto) : Promise<Machine> {
+  async create(createMachineDto: CreateMachineDto) : Promise<{newMachine: Machine, updatedSupplier: Supplier}> {
     const { supplierId, ...machinesData } = createMachineDto;
 
-    const supplier = await this.SuppliersService.findOne(supplierId);
+    const supplier = await this.SuppliersService.findBySupplierId(supplierId);
 
+    if(!supplier){
+      throw new NotFoundException(`Supplier #${supplierId} not found`);
+    } 
+
+    // Listado del nombre de las máquinas por proveedor en donde el machine.name sea igual 
+    // a machinesData.name con un agreggation function
+    // if len == 0, OK
+    // if len > 0, ya existe esa maquina para ese proveedor, sacar error
     const existingMachine = await this.MachinesModel.findOne({
       name: machinesData.name
-    }).exec();
+    });
 
     if (existingMachine) {
-      console.log(existingMachine)
       throw new Error(`Machine with name ${machinesData.name} is already assigned to another supplier`);
     }
 
-    const newMachine = await this.MachinesModel.create({
-      ...machinesData,
-      supplierId : supplier._id,
-    });
-
-    await this.SuppliersService.addMachine(supplierId, machinesData.machineId);
+    const newMachine = await (new this.MachinesModel(createMachineDto)).save();
+    const updatedSupplier = await this.SuppliersService.addMachine(supplierId, machinesData.machineId);
     
-    return await newMachine.save();
+    return {newMachine ,updatedSupplier};
   }
 
   async findAll() : Promise<Machine[]> {
-    const findAllMachineries = await this.MachinesModel.find().exec();
-    return findAllMachineries;
+    return await this.MachinesModel.find();
   }
 
-  async findOne(MachinesId: string) : Promise<Machine> {
-    const existingMachines = await this.MachinesModel.findById(MachinesId).exec();
-   if (!existingMachines) {
-    throw new NotFoundException(`Machine #${MachinesId} not found`);
+  async findByMachineId(machineId: string) : Promise<Machine> {
+    const existingMachine = await this.MachinesModel.findOne({machineId: machineId});
+    if (!existingMachine) {
+      throw new NotFoundException(`Machine #${machineId} not found`);
+    }
+    return existingMachine;
+  }
+
+  async findOne(machineId: string) : Promise<Machine> {
+    const existingMachine = await this.MachinesModel.findById(machineId).exec();
+   if (!existingMachine) {
+    throw new NotFoundException(`Machine #${machineId} not found`);
    }
-   return existingMachines;
+   return existingMachine;
   }
 
-  async update(MachinesId: string, updateMachinesDto: UpdateMachineDto) : Promise<Machine> {
+  async update(machineId: string, updateMachinesDto: UpdateMachineDto) : Promise<Machine> {
     const existingMachines = await this.MachinesModel.findByIdAndUpdate(
-      MachinesId, updateMachinesDto, { new: true }
+      machineId, updateMachinesDto, { new: true }
     );
    if (!existingMachines) {
-     throw new NotFoundException(`Machine #${MachinesId} not found`);
+     throw new NotFoundException(`Machine #${machineId} not found`);
    }
    return existingMachines;
   }
 
-  async remove(MachinesId: string) : Promise<Machine> {
-    const deletedMachines = await this.MachinesModel.findByIdAndDelete(MachinesId);
+  async remove(machineId: string) : Promise<Machine> {
+    const deletedMachines = await this.MachinesModel.findByIdAndDelete(machineId);
     if (!deletedMachines) {
-      throw new NotFoundException(`Machine #${MachinesId} not found`);
+      throw new NotFoundException(`Machine #${machineId} not found`);
     }
     return deletedMachines;
   }
