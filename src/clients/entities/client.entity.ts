@@ -33,4 +33,4 @@ export class Client extends Document {
     phone: number;
 }
 
-export const ClientSchema = SchemaFactory.createForClass(Client);
+export const ClientSchema = SchemaFactory.createForClass(Client).set('timestamps', true);

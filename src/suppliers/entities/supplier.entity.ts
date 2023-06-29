@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { CreateMachineDto } from 'src/machines/dto/create-machine.dto';
 
 @Schema()
 export class Supplier extends Document {
@@ -41,4 +40,4 @@ export class Supplier extends Document {
   
 }
 
-export const SupplierSchema = SchemaFactory.createForClass(Supplier);
+export const SupplierSchema = SchemaFactory.createForClass(Supplier).set('timestamps', true);

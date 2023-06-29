@@ -3,7 +3,6 @@ import { Types, Document } from 'mongoose';
 
 @Schema()
 export class Machine extends Document {
-
     public static schema_name: string = 'Machine';
 
     @Prop({
@@ -40,7 +39,7 @@ export class Machine extends Document {
 
 export const MachineSchema = SchemaFactory.createForClass(Machine).index(
     {name: 1, supplierId: 1}, {unique: true} 
-);
+).set('timestamps', true);
 
 
 

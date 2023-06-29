@@ -108,4 +108,4 @@ export class Order {
   
 }
 
-export const OrderSchema = SchemaFactory.createForClass(Order);
+export const OrderSchema = SchemaFactory.createForClass(Order).set('timestamps', true);

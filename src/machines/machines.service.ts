@@ -22,16 +22,16 @@ export class MachinesService {
       throw new NotFoundException(`Supplier #${supplierId} not found`);
     } 
 
-    // Listado del nombre de las máquinas por proveedor en donde el machine.name sea igual 
-    // a machinesData.name con un agreggation function
-    // if len == 0, OK
-    // if len > 0, ya existe esa maquina para ese proveedor, sacar error
+    // Check if machine already exists for this supplier
     const existingMachine = await this.MachinesModel.findOne({
-      name: machinesData.name
+      name: machinesData.name,
+      supplierId: supplierId,
     });
 
     if (existingMachine) {
-      throw new Error(`Machine with name ${machinesData.name} is already assigned to another supplier`);
+      throw new Error(
+        `Machine with name '${machinesData.name}' already exists for Supplier #${supplierId}`,
+      );
     }
 
     const newMachine = await (new this.MachinesModel(createMachineDto)).save();
