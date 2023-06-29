@@ -31,12 +31,6 @@ export class Supplier extends Document {
         required: true,
     })
     country: string;
-
-    // Almaceno solo los id de las maquinas
-    @Prop({
-        type: [String],
-    })
-    machinesList:String[];
   
 }
 

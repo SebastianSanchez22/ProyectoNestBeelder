@@ -43,20 +43,6 @@ export class SuppliersService {
    return existingSupplier;
   }
 
-  async addMachine(supplierId: string, newMachineId: String): Promise<Supplier> {
-  const existingSupplier = await this.SupplierModel.findOne({
-    supplierId: supplierId,
-  });
-  if (!existingSupplier) {
-    throw new NotFoundException(`Supplier #${supplierId} not found`);
-  }
-
-  existingSupplier.machinesList = existingSupplier.machinesList.concat(newMachineId); // Concatenar la nueva máquina a la lista existente
-
-  const updatedSupplier = await existingSupplier.save();
-  return updatedSupplier;
-}
-
   async remove(supplierId: string) : Promise<Supplier> {
     const deletedSupplier = await this.SupplierModel.findByIdAndDelete(supplierId);
     if (!deletedSupplier) {

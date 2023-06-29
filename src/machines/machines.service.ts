@@ -13,7 +13,7 @@ export class MachinesService {
               @Inject(SuppliersService) private readonly SuppliersService: SuppliersService ) {
   }
 
-  async create(createMachineDto: CreateMachineDto) : Promise<{newMachine: Machine, updatedSupplier: Supplier}> {
+  async create(createMachineDto: CreateMachineDto) : Promise<Machine> {
     const { supplierId, ...machinesData } = createMachineDto;
 
     const supplier = await this.SuppliersService.findBySupplierId(supplierId);
@@ -22,7 +22,6 @@ export class MachinesService {
       throw new NotFoundException(`Supplier #${supplierId} not found`);
     } 
 
-    // Check if machine already exists for this supplier
     const existingMachine = await this.MachinesModel.findOne({
       name: machinesData.name,
       supplierId: supplierId,
@@ -33,11 +32,8 @@ export class MachinesService {
         `Machine with name '${machinesData.name}' already exists for Supplier #${supplierId}`,
       );
     }
-
-    const newMachine = await (new this.MachinesModel(createMachineDto)).save();
-    const updatedSupplier = await this.SuppliersService.addMachine(supplierId, machinesData.machineId);
     
-    return {newMachine ,updatedSupplier};
+    return await (new this.MachinesModel(createMachineDto)).save();
   }
 
   async findAll() : Promise<Machine[]> {

@@ -38,14 +38,4 @@ export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
     })
     country?: string;
 
-    @IsArray({
-        message: 'The machinery list of the supplier must be an array'
-    })
-    @IsNotEmpty()
-    @ApiProperty({
-        type: CreateMachineDto,
-        description: 'The machinery list of the supplier'
-    })
-    machinesList?: String[];
-
 }
