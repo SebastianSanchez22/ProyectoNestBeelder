@@ -26,8 +26,10 @@ export class OrdersService {
     return await (new this.OrderModel(order)).save();
   }
 
-  async findAll() : Promise<Order[]> { 
-    return await this.OrderModel.find();
+  async findAll(page: number = 1, limit: number = 10): Promise<Order[]> {
+    const skip = (page - 1) * limit;
+  
+    return await this.OrderModel.find().skip(skip).limit(limit);
   }
 
   async findByOrderId(orderId: string) : Promise<Order> {

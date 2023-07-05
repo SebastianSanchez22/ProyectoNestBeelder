@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
@@ -14,8 +14,8 @@ export class ClientsController {
   }
 
   @Get()
-  async findAll() : Promise<Client[]> {
-    return this.clientsService.findAll();
+  async findAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return this.clientsService.findAll(page, limit);
   }
 
   @Get(':id')

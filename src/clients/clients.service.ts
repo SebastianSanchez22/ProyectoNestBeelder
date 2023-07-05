@@ -14,8 +14,10 @@ export class ClientsService {
     return await (new this.clientModel(createClientDto)).save();
   }
 
-  async findAll() : Promise<Client[]> {
-    return await this.clientModel.find();
+  async findAll(page: number = 1, limit: number = 10): Promise<Client[]> {
+    const skip = (page - 1) * limit;
+  
+    return await this.clientModel.find().skip(skip).limit(limit);
   }
 
   async findByClientId(clientId: string) : Promise<Client> {

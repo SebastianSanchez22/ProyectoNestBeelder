@@ -36,8 +36,10 @@ export class MachinesService {
     return await (new this.MachinesModel(createMachineDto)).save();
   }
 
-  async findAll() : Promise<Machine[]> {
-    return await this.MachinesModel.find();
+  async findAll(page: number = 1, limit: number = 10): Promise<Machine[]> {
+    const skip = (page - 1) * limit;
+  
+    return await this.MachinesModel.find().skip(skip).limit(limit);
   }
 
   async findByMachineId(machineId: string) : Promise<Machine> {

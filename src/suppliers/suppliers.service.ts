@@ -13,8 +13,10 @@ export class SuppliersService {
     return await (new this.SupplierModel(createSupplierDto)).save();
   }
 
-  async findAll() : Promise<Supplier[]> {
-    return await this.SupplierModel.find();
+  async findAll(page: number = 1, limit: number = 10): Promise<Supplier[]> {
+    const skip = (page - 1) * limit;
+  
+    return await this.SupplierModel.find().skip(skip).limit(limit);
   }
 
   async findBySupplierId(supplierId: string) : Promise<Supplier> {
