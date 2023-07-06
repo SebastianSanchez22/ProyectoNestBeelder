@@ -35,14 +35,16 @@ export class SuppliersService {
    return existingSupplier;
   }
 
-  async update(supplierId: string, updateSupplierDto: UpdateSupplierDto) : Promise<Supplier> {
-    const existingSupplier = await this.SupplierModel.findByIdAndUpdate(
-      supplierId, updateSupplierDto, { new: true }
-    );
-   if (!existingSupplier) {
-     throw new NotFoundException(`Supplier #${supplierId} not found`);
-   }
-   return existingSupplier;
+  async update(supplierId: string, updateSupplierDto: UpdateSupplierDto): Promise<Supplier> {
+    const existingSupplier = await this.findBySupplierId(supplierId);
+  
+    existingSupplier.name = updateSupplierDto.name;
+    existingSupplier.timezone = updateSupplierDto.timezone;
+    existingSupplier.country = updateSupplierDto.country;
+
+    await existingSupplier.save();
+  
+    return existingSupplier;
   }
 
   async remove(supplierId: string) : Promise<Supplier> {

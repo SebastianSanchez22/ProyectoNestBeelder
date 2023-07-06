@@ -58,14 +58,17 @@ export class MachinesService {
    return existingMachine;
   }
 
-  async update(machineId: string, updateMachinesDto: UpdateMachineDto) : Promise<Machine> {
-    const existingMachines = await this.MachinesModel.findByIdAndUpdate(
-      machineId, updateMachinesDto, { new: true }
-    );
-   if (!existingMachines) {
-     throw new NotFoundException(`Machine #${machineId} not found`);
-   }
-   return existingMachines;
+  async update(machineId: string, updateMachineDto: UpdateMachineDto): Promise<Machine> {
+    const existingMachine = await this.findByMachineId(machineId);
+  
+    existingMachine.name = updateMachineDto.name;
+    existingMachine.category = updateMachineDto.category;
+    existingMachine.totalQuantity = updateMachineDto.totalQuantity;
+    existingMachine.supplierId = updateMachineDto.supplierId;
+
+    await existingMachine.save();
+  
+    return existingMachine;
   }
 
   async remove(machineId: string) : Promise<Machine> {

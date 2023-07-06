@@ -36,14 +36,16 @@ export class ClientsService {
    return existingClient;
   }
 
-  async update(clientId: string, updateClientDto: UpdateClientDto) : Promise<Client> {
-    const existingClient = await this.clientModel.findByIdAndUpdate(
-      clientId, updateClientDto, { new: true }
-    );
-   if (!existingClient) {
-     throw new NotFoundException(`Client #${clientId} not found`);
-   }
-   return existingClient;
+  async update(clientId: string, updateClientDto: UpdateClientDto): Promise<Client> {
+    const existingClient = await this.findByClientId(clientId);
+  
+    existingClient.name = updateClientDto.name;
+    existingClient.address = updateClientDto.address;
+    existingClient.phone = updateClientDto.phone;
+
+    await existingClient.save();
+  
+    return existingClient;
   }
 
   async remove(clientId: string) : Promise<Client> {

@@ -20,7 +20,7 @@ export class ClientsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.clientsService.findOne(id);
+    return this.clientsService.findByClientId(id);
   }
 
   @Patch(':id')

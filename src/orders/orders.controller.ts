@@ -19,7 +19,7 @@ export class OrdersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(id);
+    return this.ordersService.findByOrderId(id);
   }
 
   @Patch(':id')

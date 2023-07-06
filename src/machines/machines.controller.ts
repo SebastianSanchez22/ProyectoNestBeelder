@@ -19,7 +19,7 @@ export class MachinesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.machineService.findOne(id);
+    return this.machineService.findByMachineId(id);
   }
 
   @Patch(':id')
